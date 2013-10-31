@@ -14,7 +14,7 @@ from clint.textui import puts, indent, colored
 from clint.textui.cols import console_width
 from clint.arguments import Args
 
-def main(argv = sys.argv):
+def migrate(argv = sys.argv):
     args = Args(argv)
 
     puts(colored.blue(
@@ -112,14 +112,17 @@ def main(argv = sys.argv):
         else:
             break
 
-    key_path = "/extra/si/%s/pub.key" % (os.environ["LOGNAME"])
+    key_path = "/extra/si/%s/pub.key" % (os.environ["LOGNAME"], )
     open(key_path, "wb").write(ssh_key + "\n")
     puts(colored.blue("All done! Key saved to " + key_path))
 
-if __name__ == "__main__":
+def main():
     try:
-        main()
+        migrate()
     except Exception as e:
         puts(colored.red(str(e)))
         puts(colored.red("-" * console_width({})))
         raise
+
+if __name__ == "__main__":
+    main()
